@@ -7,6 +7,10 @@ import About from './components/about.js';
 import DirectorsPage from './components/directorsPage.js';
 import { Provider } from 'react-redux';
 import store from './store';
+import AddNewDirector from './components/addNewDirector';
+import UpdateDirector from './components/updateDirector';
+import GetSingleDirector from './components/getSingleDirector';
+
 
 
 
@@ -21,10 +25,10 @@ function App() {
             <Route path="/" exact component={About} />
             <Route path="/directors" exact component={DirectorsPage} />
 
-            {/* <Route path="/directors/new" component={AddNewDirector} />            
-              <Route path="/directors/:id/update" component={UpdateDirector} />            
+            <Route path="/directors/new" component={AddNewDirector} />            
+            <Route path="/directors/:id/update" component={UpdateDirector} />            
                                     
-              <Route path="/directors/:id" component={GetSingleDirector} />   */}
+            <Route path="/directors/:id" component={GetSingleDirector} />  
 
           </Switch>
 

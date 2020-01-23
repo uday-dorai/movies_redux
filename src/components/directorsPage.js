@@ -44,6 +44,7 @@ class DirectorsPage extends Component {
         return (
                 <div className="moviesAndDirectorPage">
                 <h1>Directors List</h1>
+                
                 <Link to='/directors/new'>
                     <button className='addBtnForDirectorAndMovies'>+ add new Director to the List</button>
                 </Link>

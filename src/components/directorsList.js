@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {fetchMovies} from './actions/fetchDirectors'
+import {fetchMovies,deleteDirector} from './actions/fetchDirectors'
 // import {deleteDirector} from './actions/deleteDirector'
 
 
@@ -9,20 +9,27 @@ class Directors extends Component{
     componentDidMount(){
         this.props.fetchMovies();
     }
-    // deleteDirector = () =>{
-    //     console.log('clicked on delete')
-    //     // this.props.deleteDirector();
-    // }
+    deleteDirector = (e) =>{
+        // console.log(e.target.parentElement.getAttribute('index'))
+        const id =e.target.parentElement.getAttribute('index')
+        this.props.deleteDirector(id);
+        this.componentDidMount();
+    }
+    
+
 
     render(){
         const getmovies = this.props.director.map((directorsData)=>(
-            <div key={directorsData.id}>
+            <div key={directorsData.id} index={directorsData.id}>
                 <p>Director : {directorsData.director}</p>
+                <Link to={'/directors/'+(directorsData.id)+'/update'}>
+                        <button>Update</button>
+                </Link>
                 <button onClick={this.deleteDirector}>delete</button>
 
             </div>
         ));
-        console.log(this);
+        // console.log(this);
         return (
             <div>
                 <h1>directors list</h1>
@@ -32,16 +39,16 @@ class Directors extends Component{
     }
 }
 
-// const mapToActions{
-//     fetchMovies,
-//     deleteDirector
-// }
-
 
 const mapStateToProps = state =>({
     director:state.director.directors
  })
+
+ const mapDispatchToProps = {
+    fetchMovies,
+    deleteDirector
+ }
  
- export default connect(mapStateToProps, {fetchMovies})(Directors);
+ export default connect(mapStateToProps, mapDispatchToProps)(Directors);
 
 // export default Directors;

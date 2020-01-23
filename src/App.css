@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  color: black;
 }
 
 .App-logo {
@@ -25,7 +26,8 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #282c34;
+
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +37,227 @@
   to {
     transform: rotate(360deg);
   }
+}
+.nav{
+  background-color: rgb(127, 158, 214);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
+}
+
+ol, ul {
+  padding-left: 30px;
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+  
+}
+
+.game {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+
+
+
+
+
+.header{
+  padding: 30px 0px 20px 0px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr ;
+  background-color: rgb(9, 15, 27);
+  /* display: flex; */
+  /* justify-content: space-around; */
+}
+.homeButton{
+  border-style: none;
+  font-weight: bolder;
+  color: #282c34;
+  color: black;
+
+  font-size: 17px;
+  margin-top: 10px;
+  margin-left: 30%;
+  text-decoration: none;
+  padding: 15px 50px 15px 50px;
+}
+
+
+.DirectorsBlock{
+  background-color: cornflowerblue;
+  width: 60%;
+  padding: 10px;
+  margin-left: 20%;
+  margin-bottom: 20px;
+  text-align: center;
+  color: black;
+  border-radius: 10px
+}
+.DirectorUL{
+  list-style: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+
+}
+
+.moviesBlock{
+  width: 80%;
+  /* background-color: rgb(32, 39, 51); */
+  background-color: cornflowerblue;
+  padding: 10px 20px 30px 10px;
+  margin-left: 10%;
+  margin-bottom: 40px;
+  font-size: 16px;
+  color: black;
+  border-radius: 10px;
+}
+.addNewDirector{
+  padding:5px 0px 5px 20px ;
+  margin-bottom: 20px;
+  width: 40%;
+  border-radius: 7px;
+}
+.addBtnMovie{
+  /* margin-left: 10px; */
+  width:15%;
+  padding: 5px;
+  border-radius: 5px;
+}
+.addBtnDirector{
+  margin-left: 10px;
+  width:8%;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.addDirectorContainer{
+  background-color: aquamarine;
+  width: 80%;
+  background-color: cornflowerblue;
+  padding: 10px 20px 30px 10px;
+  margin-left: 10%;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  font-size: 16px;
+  color: black;
+  border-radius: 10px;
+}
+
+.about{
+  background-color: crimson;
+  height: 410px;
+  /* background-image: url('./img_about.jpg'); */
+  /* margin-left: 30%; */
+  /* background-color: #999; */
+  /* display: flex; */
+  /* width: 20%; */
+  padding: 40px 40px 40px 100px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.homeMovies{
+  border-style: none;
+  font-weight: bolder;
+  /* color: #f5f1ec; */
+  font-size: 17px;
+  margin-top: 10px;
+  margin-left: 10px;
+  background-color: darkcyan;
+  text-decoration: none;
+  padding: 15px 50px 15px 50px;
+
+}
+.addDirectorContainer h3{
+  color: indigo;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.addBtnDirectorAndMovies{
+  margin-left: 10px;
+  width:10%;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.addBtnForDirectorAndMovies{
+  margin-bottom: 30px;
+  margin-left: 10px;
+  width:61%;
+  padding: 15px;
+  border-radius: 10px;
+  border-style: none;
+  
+}
+
+.moviesAndDirectorPage{
+  /* margin-top: 20px; */
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgb(184, 208, 236);
+}
+
+.moviesAndDirectorPage h1{
+  color:rgb(8, 8, 8);
+}
+
+.moviesform{
+  text-align: left;
+}
+
+.singleMoviesBox{
+  display: grid;
+  grid-template-columns: 1fr,1fr;
+  /* display: flex; */
+  text-align: left;
+  padding: 10px;
+}
+
+.singleMoviesBox input{
+    margin-left: 50px;
+    width: 50%;
+    padding: 5px;
+}
+.singleMoviesBox label{
+  margin-left: 50px;
 }
