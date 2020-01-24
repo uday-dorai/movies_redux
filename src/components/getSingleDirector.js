@@ -1,41 +1,27 @@
 import React,{Component} from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {getSingleDirector} from './actions/fetchDirectors'
 
 
 
 class GetSingleDirector extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            Director:'',
-            
-        }
-    }
-    async componentDidMount() {
-        await fetch(`http://localhost:8000/api/directors/${this.props.match.params.id}`)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    Director:data.director,
-                });
-                // console.log(this.state)
-            })
-            // .catch(error =>{
-            //     alert(error);
-            // })
+    componentDidMount() {
+        const id =  this.props.match.params.id;
+        this.props.getSingleDirector(id)
     }
    
     
 
     render(){
-        // const {director} = this.state
+        
         return (
             <div className='addDirectorContainer'>
                 <h3>Director at Id : {this.props.match.params.id}</h3>
                 <div className="singleDirector">
 
                     <p name="Director"
-                    >Director : {this.state.Director}</p>
+                    >Director : {this.props.director.director}</p>
                     
                     <Link to='/directors'>
                         <button className='addBtnDirector' >back</button>
@@ -48,7 +34,14 @@ class GetSingleDirector extends Component{
         );
     }
 }
-
-export default GetSingleDirector;
+const mapStateToProps = state =>{
+    console.log(state.director.director.director);
+    return {
+        director:state.director.director,
+        
+    }
+}
+export default connect(mapStateToProps, {getSingleDirector})(GetSingleDirector);
+// export default GetSingleDirector;
 
 

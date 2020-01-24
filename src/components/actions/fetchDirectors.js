@@ -11,10 +11,10 @@ export const deleteDirector = (id) =>({
 });
 
 export const addDirector = (data) =>{
-    console.log(data)
+    // console.log(data)
     return{
         type:'ADD_DIRECTOR',
-        data,
+        data
     }
 }
 

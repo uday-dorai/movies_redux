@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Link } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {addDirector} from './actions/fetchDirectors'
 
@@ -8,15 +8,17 @@ import {addDirector} from './actions/fetchDirectors'
 class AddNewDirector extends Component{
     
     
-    onSubmit = (e) =>{
+    onSubmit = async (e) =>{
         e.preventDefault();
         console.log(e.target[0].value);
+        const name = e.target[0].value;
+        // console.log(name)
         const data={
             director:e.target[0].value
         }
         this.props.addDirector(data);
-        // console.log(this.props.addDirector);
-        this.props.history.push("/directors/");
+        console.log(this.props);
+        this.props.history.push("/directors");
     
             
     }
@@ -25,7 +27,7 @@ class AddNewDirector extends Component{
     render(){
         // const {director} = this.state
         return (
-            <div className='addDirectorContainer'>
+            <div>
                 <h3>Enter new Director to the List</h3>
                 <form onSubmit = {this.onSubmit} className='addDirectorForm'>
                     <input type='text' 
@@ -37,9 +39,9 @@ class AddNewDirector extends Component{
                     />
                         
                     <button type='submit' className='addBtnDirectorAndMovies' >+add</button>
-                    <Link to='/directors'>
+                    {/* <Link to='/directors'>
                         <button className='addBtnDirectorAndMovies' >cancel</button>    
-                    </Link>
+                    </Link> */}
                     
                 </form>
                 
@@ -48,9 +50,12 @@ class AddNewDirector extends Component{
     }
 }
 
-const mapStateToProps = state =>({
-    director:state.director.directors
- })
+const mapStateToProps = state =>{
+    return {
+        director:state.director.directors
+    }
+    
+ }
 
  const mapDispatchToProps = {
     addDirector
@@ -58,6 +63,6 @@ const mapStateToProps = state =>({
     // deleteDirector
  }
  
- export default connect(mapStateToProps, mapDispatchToProps)(AddNewDirector);
+ export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddNewDirector));
 
 // export default AddNewDirector;

@@ -1,30 +1,26 @@
 // import { FETCH_MOVIES, FETCH_MOVIE } from '../actions/types'
-import { put, takeEvery,all,fork } from 'redux-saga/effects'
-
-
-
-
+import { put, takeEvery, all, fork, takeLatest, call } from 'redux-saga/effects'
 
 
 // fetch director watcher
 function* fetchMovies() {
-    // console.log('saga')
+    console.log('saga')
     yield takeEvery('FETCH_MOVIES', workerSaga)
 }
 
 // fetch director watcher
 function* workerSaga() {
-    // console.log('workersaga')
-    
+    console.log('workersaga')
+
     const url = "http://localhost:8000/api/directors";
     const payload = yield fetch(url, {
-                method: "GET",
-            })
-            .then(res => {
-                // console.log('11')
-                return res.json();
-            });
-    // console.log(payload);
+        method: "GET",
+    })
+        .then(res => {
+            console.log('11')
+            return res.json();
+        });
+    console.log(payload);
     yield put({ type: "FETCH_MOVIE", payload });
 }
 
@@ -39,52 +35,50 @@ function* deletedirector() {
 
 //  delete director worker
 function* deleteDirectorWorker(data) {
-    // console.log('worker')
-    // console.log(data.id)
-    
-    
     const url = `http://localhost:8000/api/directors/${data.id}`;
-    const payload = yield fetch(url, {
-                method: 'DELETE'
-            })
-            .then(workerSaga())
-
-    console.log(payload);
-    yield put({ type: "DELETE_SUCCESSFUL",});
+    yield fetch(url, {
+        method: 'DELETE'
+    })
+    // .then(res =>{
+    //     if (res.ok) {
+    //         alert(' director has been deleted')
+    //     }
+    // })
+    yield call(workerSaga)
+    
 }
 
 
 
 /////////////////
-
+let payload;
 //  add director Watcher
 function* addDirector() {
     // console.log('director')
-    yield takeEvery('ADD_DIRECTOR', addDirectorWorker)
+    yield takeLatest('ADD_DIRECTOR', addDirectorWorker)
 }
 //  add director worker
 function* addDirectorWorker(data) {
-    // console.log('worker')
-    // console.log(data.data)
-
+    // console.log(data)
+    console.log(data)
+    const detail = data.data
     const url = `http://localhost:8000/api/directors`;
-    const payload = fetch(url, {
-            method: 'POST',
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data.data),
-        })
-        .then(res =>{
-            if(res.ok){
-                alert('director has been added to the list')
-                // workerSaga();
-            }
-        })
-
-    // console.log(payload);
-    yield put({ type: "ADD_DIRECTOR_SUCCESS",payload});
+    yield fetch(url, {
+        method: 'POST',
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(detail),
+    })
+    .then(res =>{
+        if (res.ok) {
+            alert('new director has been added')
+        }
+    })
+    
+    yield call(workerSaga)
+    
 }
 
 //////////
@@ -96,18 +90,16 @@ function* getSingleDirector() {
 }
 //  get singleDirector worker
 function* getSingleDirectorWorker(id) {
-    // console.log(id.id)
-    // console.log('singleDirectorWorker')
     const url = `http://localhost:8000/api/directors/${id.id}`;
-    const payload = yield fetch(url, {
-                method: "GET",
-            })
-            .then(res => {
-                return res.json();
-            });
-    // console.log(payload)
-    yield put({ type: "GET_SINGLE_DIRECTOR_SUCCESSFUL",payload});
-    
+    payload = yield fetch(url, {
+        method: "GET",
+    })
+        .then(res => {
+            return res.json();
+        });
+    console.log(payload)
+    yield put({ type: "GET_SINGLE_DIRECTOR_SUCCESSFUL", payload });
+
 }
 
 /////////////
@@ -123,32 +115,32 @@ function* updateDirectorWorker(data) {
     console.log('worker')
     // console.log(data.data.director)
     const id = data.data.id;
-    const directorName = {director:data.data.director}
+    const directorName = { director: data.data.director }
     const url = `http://localhost:8000/api/directors/${id}`;
-    const payload = fetch(url, {
-                        method: 'PUT',
-                        headers: {
-                            Accept: "application/json",
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(directorName),
-                    })
-                    .then(res =>{
-                        if(res.ok){
-                            alert('director has been updated')
-                        }
-                    })
-
-                    console.log(payload);
+    yield fetch(url, {
+        method: 'PUT',
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(directorName),
+    })
+        .then(res => {
+            if (res.ok) {
+                alert('director has been updated')
+            }
+        })
+    yield call(workerSaga)
+    
 }
 
 
 export default function* rootSaga() {
     yield all([
-      fork(fetchMovies),
-      fork(deletedirector),
-      fork(addDirector),
-      fork(updateDirector),
-      fork(getSingleDirector),
+        fork(fetchMovies),
+        fork(deletedirector),
+        fork(addDirector),
+        fork(updateDirector),
+        fork(getSingleDirector),
     ]);
-  }
+}
